@@ -1,16 +1,15 @@
 import ITable
 
-class Resurces (ITable):
+class Users(ITable):
 
     def __init__(self):
-        self._tableName = "resources"
+        self._tableName = "users"
 
     def up(self):
         return f"""
         CREATE TABLE IF NOT EXISTS {self._tableName}
         (
-             name text,
-             link text,
+             chat_id int,
         )"""
 
     def down(self):
