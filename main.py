@@ -16,8 +16,9 @@ from database.database import Database
 # db = Database()
 from telegram.ext import Updater, CommandHandler
 
-from Logger.console_loger import ConsoleLogger
 from config import TOKEN
+from logger.console_loger import ConsoleLogger
+from controllers.controller_url import ControllerURL
 
 class Bot:
 
@@ -29,7 +30,7 @@ class Bot:
         self.setHandlers()
 
     def setHandlers(self):
-        self._dispatcher.add_handler(CommandHandler("start", lambda : print("he")))
+        self._dispatcher.add_handler(CommandHandler("watch", ControllerURL.watch))
 
         self._dispatcher.add_error_handler(self._logger.error)
 

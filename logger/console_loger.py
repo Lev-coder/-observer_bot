@@ -1,6 +1,6 @@
 import logging
-
-class ConsoleLogger:
+from logger.ilogger import ILogger
+class ConsoleLogger(ILogger):
 
     def __init__(self):
         logging.basicConfig(format='%(asctime)s - %(name)s - %(levelname)s - %(message)s',
