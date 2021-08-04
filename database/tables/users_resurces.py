@@ -1,6 +1,6 @@
-import ITable
+from database.tables.itable import ITable
 
-class UsersResources(ITable):
+class UsersResources (ITable):
 
     def __init__(self):
         self._tableName = "users_resources"

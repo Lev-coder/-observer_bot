@@ -1,4 +1,4 @@
-import ITable
+from database.tables.itable import ITable
 
 class Resurces (ITable):
 

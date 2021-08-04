@@ -4,9 +4,17 @@
 # Press Double Shift to search everywhere for classes, files, tool windows, actions, and settings.
 
 from bs4 import BeautifulSoup
-import requests
-r = requests.get("https://hi-news.ru/wp-content/uploads/2021/08/java_development_x5_group-650x358.jpg")
+# import requests
+# r = requests.get("https://hi-news.ru/wp-content/uploads/2021/08/java_development_x5_group-650x358.jpg")
+#
+# print(r.headers)
+#
+# print(r.headers['last-modified'])
 
-print(r.headers)
+from database.database import Database
+# from database.tables.resources import Resurces
+#
+# r = Resurces()
+# print(r.up())
+db = Database()
 
-print(r.headers['last-modified'])
