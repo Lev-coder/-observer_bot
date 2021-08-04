@@ -12,13 +12,36 @@ class Database:
         UsersResources(),
     ]
 
+    _databaseName = "TheDatabase.db"
+
     def __init__(self):
+        self._connection = sqlite.connect( Database._databaseName )
+        cursor = self._connection.cursor()
+
         for table in Database._tables:
-            table.up()
+            Database._createTable(self, cursor,table)
 
 
     def stop(self):
-        for table in Database.tables:
-            table.down()
+        cursor = self._connection.cursor()
+
+        for table in Database._tables:
+            Database._deleteTable(self, cursor, table)
+
+
+    def _deleteTable(self,cursor,table):
+        try:
+            cursor.execute(table.down())
+        except Exception as error:
+            print(error)
+        print(f"delete table {table.getTableName()}")
+
+    def _createTable(self,cursor,table):
+        try:
+            cursor.execute(table.up())
+        except Exception as error:
+            print(error)
+        print(f"create table {table.getTableName()}")
+
 
 

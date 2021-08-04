@@ -9,10 +9,13 @@ class Users(ITable):
         return f"""
         CREATE TABLE IF NOT EXISTS {self._tableName}
         (
-             chat_id int,
+             chat_id int
         )"""
 
     def down(self):
         return f"""
         DROP TABLE {self._tableName}
         """
+
+    def getTableName(self):
+        return self._tableName

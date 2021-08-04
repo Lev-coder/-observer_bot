@@ -12,9 +12,8 @@ from bs4 import BeautifulSoup
 # print(r.headers['last-modified'])
 
 from database.database import Database
-# from database.tables.resources import Resurces
-#
-# r = Resurces()
-# print(r.up())
+
 db = Database()
+
+
 

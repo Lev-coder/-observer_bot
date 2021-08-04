@@ -6,3 +6,6 @@ class ITable:
 
     def down(self):
         raise Exception('define method down')
+
+    def getTableName(self):
+        raise Exception('define method getTableName')

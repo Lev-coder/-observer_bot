@@ -17,3 +17,6 @@ class UsersResources (ITable):
         return f"""
         DROP TABLE {self._tableName}
         """
+
+    def getTableName(self):
+        return self._tableName

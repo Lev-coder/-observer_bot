@@ -10,10 +10,13 @@ class Resurces (ITable):
         CREATE TABLE IF NOT EXISTS {self._tableName}
         (
              name text,
-             link text,
+             link text
         )"""
 
     def down(self):
         return f"""
         DROP TABLE {self._tableName}
         """
+
+    def getTableName(self):
+        return self._tableName
