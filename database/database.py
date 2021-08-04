@@ -1,5 +1,6 @@
 import sqlite3 as sqlite
 
+from database.tables.itable import ITable
 from database.tables.resources import Resurces
 from database.tables.users import Users
 from database.tables.users_resurces import UsersResources
@@ -19,6 +20,8 @@ class Database:
         cursor = self._connection.cursor()
 
         for table in Database._tables:
+            if not table is ITable:
+                raise ArithmeticError("table is not ITable")
             Database._createTable(self, cursor,table)
 
 

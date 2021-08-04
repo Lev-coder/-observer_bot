@@ -9,8 +9,9 @@ class Resurces (ITable):
         return f"""
         CREATE TABLE IF NOT EXISTS {self._tableName}
         (
-             name text,
-             link text
+             id int,
+             link text,
+             last_modified timestamp
         )"""
 
     def down(self):

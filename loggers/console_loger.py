@@ -1,5 +1,5 @@
 import logging
-from logger.ilogger import ILogger
+from loggers.ilogger import ILogger
 class ConsoleLogger(ILogger):
 
     def __init__(self):
