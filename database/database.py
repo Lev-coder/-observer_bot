@@ -22,7 +22,7 @@ class Database:
             Database._createTable(self, cursor,table)
 
 
-    def stop(self):
+    def drop(self):
         cursor = self._connection.cursor()
 
         for table in Database._tables:
@@ -33,14 +33,14 @@ class Database:
         try:
             cursor.execute(table.down())
         except Exception as error:
-            print(error)
+            print(f"error: {error}")
         print(f"delete table {table.getTableName()}")
 
     def _createTable(self,cursor,table):
         try:
             cursor.execute(table.up())
         except Exception as error:
-            print(error)
+            print(f"error: {error}")
         print(f"create table {table.getTableName()}")
 
 

@@ -13,7 +13,40 @@ from bs4 import BeautifulSoup
 
 from database.database import Database
 
-db = Database()
+# db = Database()
+from telegram.ext import Updater, CommandHandler
+
+from Logger.console_loger import ConsoleLogger
+from config import TOKEN
+
+class Bot:
+
+    def __init__(self, token, iLoggerProvider):
+        self._updater = Updater(TOKEN)
+        self._dispatcher = self._updater.dispatcher
+        self._logger = iLoggerProvider
+
+        self.setHandlers()
+
+    def setHandlers(self):
+        self._dispatcher.add_handler(CommandHandler("start", lambda : print("he")))
+
+        self._dispatcher.add_error_handler(self._logger.error)
+
+    def start(self):
+        self._updater.start_polling()
+        self._updater.idle()
+
+if __name__ == '__main__':
+    bot = Bot(TOKEN,ConsoleLogger)
+    bot.start()
+
+
+
+
+
+
+
 
 
 
