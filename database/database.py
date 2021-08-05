@@ -20,9 +20,9 @@ class Database:
 
     def __init__(self):
         self.tables = {}
-
         self._connection = self.makeConnect()
 
+    def up(self):
         cursor = self._connection.cursor()
 
         self._createDatabase(cursor)
@@ -32,7 +32,6 @@ class Database:
             table = table(Database._databaseName)
             self._createTable(cursor, table)
             self._addTableToDatabase(table)
-
     def drop(self):
         cursor = self._connection.cursor()
 

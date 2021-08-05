@@ -1,9 +1,9 @@
 from database.database import Database
 from database.tables.users import Users
 
-class AddUser:
+class GetUser:
 
-    def __init__(self,chat_id):
+    def __init__(self, chat_id):
         self.chat_id = chat_id
 
     def start(self):
@@ -13,15 +13,12 @@ class AddUser:
         self.cursor = database.getCursor()
         self.userTableName = Users.getTableName()
 
-        self.addUser()
+        return self.getUser()
 
-        database.saveChange()
-
-    def addUser(self):
+    def getUser(self):
         return self.cursor.execute(self.sqlCommand())
 
     def sqlCommand(self):
         return f""" 
-
-        INSERT INTO {self.databaseName}.{self.userTableName}(chat_id) VALUES ({self.chat_id})
+        SELECT chat_id FROM {self.databaseName}.{self.userTableName} WHERE {self.chat_id}
         """
