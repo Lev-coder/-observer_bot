@@ -9,7 +9,7 @@ class Resurces (ITable):
         return f"""
         CREATE TABLE IF NOT EXISTS {self._tableName}
         (
-             id int,
+             id int PRIMARY KEY AUTOINCREMENT,
              link text,
              last_modified timestamp
         )"""
