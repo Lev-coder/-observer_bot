@@ -8,7 +8,10 @@ class AddUser:
     def start(self):
         self.cursor = Database.getCursor()
         self.userTable = Database.getTable("users")
+
         self.addUser(self.chat_id)
+
+        Database.saveChange()
 
     def addUser(self):
         return self.cursor.execute(self.sqlCommand())

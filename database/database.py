@@ -41,6 +41,10 @@ class Database:
     def getCursor(self):
         return self._connection.cursor()
 
+    def saveChange(self):
+        self._connection.commit()
+        return True
+
     def _deleteTable(self,cursor,table):
         try:
             cursor.execute(table.down())
@@ -57,6 +61,9 @@ class Database:
 
     def _addTableToDatabase(self,table):
         self.tables[ table.getTableName() ] = table
+
+    def __del__(self):
+        self._connection.close()
 
 
 
