@@ -38,6 +38,8 @@ class Database:
             raise Exception("Database not have this table")
         return self.tables[ table.getTableName() ]
 
+    def getCursor(self):
+        return self._connection.cursor()
 
     def _deleteTable(self,cursor,table):
         try:
