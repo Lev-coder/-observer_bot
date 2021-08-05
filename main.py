@@ -15,8 +15,6 @@ from loggers.console_loger import ConsoleLogger
 from controllers.url_controller import URLController
 from controllers.user_controller import UserController
 
-def hello(update, context):
-    update.message.reply_text( "hello" )
 class Bot:
 
     def __init__(self, token, iLoggerProvider):
@@ -30,7 +28,6 @@ class Bot:
         print("set handlers")
 
         self._dispatcher.add_handler(CommandHandler("start", UserController.start, pass_args=True))
-        # self._dispatcher.add_handler(CommandHandler("start", hello))
         self._dispatcher.add_handler(CommandHandler("watch", URLController.watch, pass_args=True))
 
         self._dispatcher.add_error_handler(self._logger.error)

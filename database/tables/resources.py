@@ -1,9 +1,9 @@
 from database.tables.itable import ITable
 
-class Resurces (ITable):
+class Resurces(ITable):
 
+    _tableName = "resources"
     def __init__(self, databaseName: str):
-        self._tableName = "resources"
         self._databaseName = databaseName
 
     def up(self):
@@ -20,5 +20,9 @@ class Resurces (ITable):
         DROP TABLE {self._tableName}
         """
 
-    def getTableName(self):
-        return self._tableName
+    @staticmethod
+    def getTableName():
+        return Resurces._tableName
+
+    def getName(self):
+        return Resurces._tableName

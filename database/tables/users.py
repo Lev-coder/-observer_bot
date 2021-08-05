@@ -2,8 +2,9 @@ from database.tables.itable import ITable
 
 class Users(ITable):
 
+    _tableName = "users"
+
     def __init__(self, databaseName: str):
-        self._tableName = "users"
         self._databaseName = databaseName
 
     def up(self):
@@ -15,8 +16,12 @@ class Users(ITable):
 
     def down(self):
         return f"""
-        DROP TABLE {self._tableName}
+        DROP TABLE {self._databaseName}.{self._tableName}
         """
 
-    def getTableName(self):
-        return self._tableName
+    @staticmethod
+    def getTableName():
+        return Users._tableName
+
+    def getName(self):
+        return Users._tableName

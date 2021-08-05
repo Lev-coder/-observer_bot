@@ -21,11 +21,7 @@ class Database:
     def __init__(self):
         self.tables = {}
 
-        self._connection = connect(
-            host = Database._host,
-            user = Database._user,
-            password = Database._password,
-        )
+        self._connection = self.makeConnect()
 
         cursor = self._connection.cursor()
 
@@ -44,10 +40,10 @@ class Database:
             table = table(Database._databaseName)
             Database._deleteTable(self, cursor, table(Database._databaseName))
 
-    def getTable(self, table:str):
-        if table.getTableName() not in self.tables:
+    def getTable(self, tableName: str):
+        if tableName not in self.tables:
             raise Exception("Database not have this table")
-        return self.tables[table.getTableName()]
+        return self.tables[tableName]
 
     def getCursor(self):
         return self._connection.cursor()
@@ -55,6 +51,9 @@ class Database:
     def saveChange(self):
         self._connection.commit()
         return True
+
+    def getDatabaseName(self):
+        return Database._databaseName
 
     def _createDatabase(self,cursor):
         try:
@@ -68,17 +67,24 @@ class Database:
             cursor.execute(table.up())
         except Error as error:
             print(f"error: {error}")
-        print(f"create table {table.getTableName()}")
+        print(f"create table {table.getName()}")
 
     def _deleteTable(self, cursor, table):
         try:
             cursor.execute(table.down())
         except Error as error:
             print(f"error: {error}")
-        print(f"delete table {table.getTableName()}")
+        print(f"delete table {table.getName()}")
 
     def _addTableToDatabase(self, table):
-        self.tables[table.getTableName()] = table
+        self.tables[table.getName()] = table
+
+    def makeConnect(self):
+        return connect(
+            host=Database._host,
+            user=Database._user,
+            password=Database._password,
+        )
 
     def __del__(self):
         self._connection.close()
