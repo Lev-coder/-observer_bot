@@ -1,11 +1,12 @@
 from database.requests.add_user import AddUser
-
+from views.menu import Menu
 class UserController:
 
-    def addUser(self,update, context):
+    @staticmethod
+    def start(update, context):
         user = update.message.from_user
-        chat_id = user['id']
+        chat_id = user.id
 
-        AddUser().addUser(chat_id)
+        AddUser(chat_id).start()
 
-        #TODO отдать список команд (VIE)
+        update.message.reply_text( Menu().text() )

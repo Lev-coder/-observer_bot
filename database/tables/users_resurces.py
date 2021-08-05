@@ -2,15 +2,18 @@ from database.tables.itable import ITable
 
 class UsersResources (ITable):
 
-    def __init__(self):
+    def __init__(self, databaseName: str):
         self._tableName = "users_resources"
+        self._databaseName = databaseName
 
     def up(self):
         return f"""
-        CREATE TABLE IF NOT EXISTS {self._tableName}
+        CREATE TABLE IF NOT EXISTS {self._databaseName}.{self._tableName}
         (
-             chat_id int,
-             resource_id int
+             chat_id INT,
+             resource_id INT,
+             FOREIGN KEY(chat_id) REFERENCES users(chat_id),
+             FOREIGN KEY(resource_id) REFERENCES resources(id)
         )"""
 
     def down(self):
