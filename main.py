@@ -34,9 +34,12 @@ class Bot:
         self._updater.start_polling()
         self._updater.idle()
 
+        print("bot start")
+
 if __name__ == '__main__':
     bot = Bot(TOKEN,ConsoleLogger)
     bot.start()
+print("dfg")
 
 
 

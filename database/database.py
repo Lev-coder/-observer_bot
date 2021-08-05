@@ -22,7 +22,9 @@ class Database:
         for table in Database._tables:
             if not table is ITable:
                 raise ArithmeticError("table is not ITable")
-            Database._createTable(self, cursor,table)
+
+            self._addTableToDatabase(table)
+            self._createTable(self, cursor,table)
 
 
     def drop(self):
@@ -30,6 +32,11 @@ class Database:
 
         for table in Database._tables:
             Database._deleteTable(self, cursor, table)
+
+    def getTable(self,table : ITable):
+        if not table.getTableName() in self.tables:
+            raise Exception("Database not have this table")
+        return self.tables[ table.getTableName() ]
 
 
     def _deleteTable(self,cursor,table):
@@ -45,6 +52,9 @@ class Database:
         except Exception as error:
             print(f"error: {error}")
         print(f"create table {table.getTableName()}")
+
+    def _addTableToDatabase(self,table):
+        self.tables[ table.getTableName() ] = table
 
 
 
