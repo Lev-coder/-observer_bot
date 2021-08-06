@@ -1,4 +1,5 @@
 import validators
+from database.requests.get_resource import GetResource
 
 class CheckURL:
 
@@ -8,6 +9,17 @@ class CheckURL:
 
     @staticmethod
     def getURL(context):
+
         if len(context.args) == 0:
             raise Exception("give me URL (example:  /watch https://stepik.org/)")
-        return context.args[0]
+
+        url = context.args[0]
+
+        if not CheckURL.isURLValide(url):
+            raise Exception("URL not valide")
+
+        return url
+
+    @staticmethod
+    def isURLExist(url):
+        return GetResource(url).start() != None

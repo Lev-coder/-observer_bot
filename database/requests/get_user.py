@@ -16,9 +16,11 @@ class GetUser:
         return self.getUser()
 
     def getUser(self):
-        return self.cursor.execute(self.sqlCommand())
+        self.cursor.execute(self.sqlCommand())
+        return self.cursor.fetchone()
 
     def sqlCommand(self):
         return f""" 
-        SELECT * FROM {self.databaseName}.{self.userTableName} WHERE chat_id = {self.chat_id}
+        SELECT chat_id FROM {self.databaseName}.{self.userTableName} 
+            WHERE chat_id = {self.chat_id}
         """

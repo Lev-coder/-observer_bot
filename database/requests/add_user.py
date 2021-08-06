@@ -22,6 +22,6 @@ class AddUser:
 
     def sqlCommand(self):
         return f""" 
-
-        INSERT INTO {self.databaseName}.{self.userTableName}(chat_id) VALUES ({self.chat_id})
+        INSERT INTO {self.databaseName}.{self.userTableName}(chat_id) 
+        VALUES ({self.chat_id})
         """

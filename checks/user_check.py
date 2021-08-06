@@ -4,9 +4,7 @@ class UserCheck:
 
     @staticmethod
     def isUserExist(chat_id):
-        #TODO напиши меня
-        print(GetUser(chat_id).start())
-        return True
+        return GetUser(chat_id).start() != None
 
     @staticmethod
     def getChatId(update):

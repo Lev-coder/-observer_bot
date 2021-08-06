@@ -3,6 +3,7 @@ from database.tables.itable import ITable
 class Resurces(ITable):
 
     _tableName = "resources"
+
     def __init__(self, databaseName: str):
         self._databaseName = databaseName
 

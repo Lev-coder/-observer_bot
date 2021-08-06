@@ -1,4 +1,5 @@
 from database.database import Database
+from database.tables.resources import Resurces
 
 class AddResources:
 
@@ -7,8 +8,11 @@ class AddResources:
         self.last_modified = last_modified
 
     def start(self):
-        self.cursor = Database.getCursor()
-        self.resourceTable = Database.getTable("resources")
+        database = Database()
+
+        self.databaseName = database.getDatabaseName()
+        self.cursor = database.getCursor()
+        self.resourceTable= Resurces.getTableName()
 
         self.addResource(self.link,self.last_modified)
 
@@ -19,6 +23,6 @@ class AddResources:
 
     def sqlCommand(self):
         return f""" 
-        INSERT INTO {self.userTable}(link,last_modified) 
-        VALUES({self.link},{self.last_modified})
+        INSERT INTO {self.databaseName}.{self.userTable}(link,last_modified) 
+        VALUES ({self.link},{self.last_modified})
         """

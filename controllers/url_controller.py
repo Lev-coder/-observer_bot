@@ -1,20 +1,26 @@
 from checks.url_cheker import CheckURL
 from views.resource_in_database import ResourceInDatabase
 from checks.user_check import UserCheck
+from database.requests.add_resource_to_user import AddResourceToUser
+from web_request.one_request import OneRequest
+
 class URLController:
 
     @staticmethod
     def watch(update, context):
 
         url = CheckURL.getURL(context)
-
-        if not CheckURL.isURLValide(url):
-            raise Exception("URL not valide")
-
         chat_id = UserCheck.getChatId(update)
+        lastModified = OneRequest(url).getlastModified()
 
-
-        #записать этот ресур для этого чата
-        #сообщить об удачном завершении работы
+        AddResourceToUser.start(chat_id, url, lastModified)
 
         update.message.reply_text(ResourceInDatabase(url).text())
+
+    @staticmethod
+    def getAllURLs():
+        pass
+
+    @staticmethod
+    def getAllURLsForThisUser():
+        pass
