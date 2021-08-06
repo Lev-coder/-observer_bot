@@ -41,6 +41,7 @@ class Bot:
 
 if __name__ == '__main__':
     db = Database()
-    db.up()
     bot = Bot(TOKEN, ConsoleLogger)
+
+    db.up()
     bot.start()

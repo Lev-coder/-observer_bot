@@ -4,6 +4,11 @@ class UserCheck:
 
     @staticmethod
     def isUserExist(chat_id):
-        q = GetUser(chat_id).start()
+        #TODO напиши меня
         print(GetUser(chat_id).start())
         return True
+
+    @staticmethod
+    def getChatId(update):
+        user = update.message.from_user
+        return user['id']

@@ -1,16 +1,18 @@
 from checks.url_cheker import CheckURL
 from views.resource_in_database import ResourceInDatabase
+from checks.user_check import UserCheck
 class URLController:
 
     @staticmethod
     def watch(update, context):
-        url = context(0)
-        print(url)
+
+        url = CheckURL.getURL(context)
+
         if not CheckURL.isURLValide(url):
             raise Exception("URL not valide")
 
-        user = update.message.from_user
-        chat_id = user['id']
+        chat_id = UserCheck.getChatId(update)
+
 
         #записать этот ресур для этого чата
         #сообщить об удачном завершении работы

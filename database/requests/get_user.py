@@ -20,5 +20,5 @@ class GetUser:
 
     def sqlCommand(self):
         return f""" 
-        SELECT chat_id FROM {self.databaseName}.{self.userTableName} WHERE {self.chat_id}
+        SELECT * FROM {self.databaseName}.{self.userTableName} WHERE chat_id = {self.chat_id}
         """

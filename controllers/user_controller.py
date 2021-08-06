@@ -6,11 +6,9 @@ class UserController:
 
     @staticmethod
     def start(update, context):
-
-        user = update.message.from_user
-        chat_id = user.id
+        chat_id = UserCheck.getChatId(update)
 
         if not UserCheck.isUserExist(chat_id):
             AddUser(chat_id).start()
 
-        update.message.reply_text( Menu().text() )
+        update.message.reply_text(Menu().text())
