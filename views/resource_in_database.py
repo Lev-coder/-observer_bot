@@ -6,5 +6,5 @@ class ResourceInDatabase:
 
     def text(self):
         return f"""
-the bot looks at the resource {self._url} - last-modified:{self._lastModified}
+the bot looks at the resource {self._url} - last-modified: {self._lastModified}
 """

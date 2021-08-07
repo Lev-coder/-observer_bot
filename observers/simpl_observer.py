@@ -1,5 +1,9 @@
-# кажный заданный интервал времени проверяет ресур на изменение
-# если изменение было, то сообщает об этом контроллеру ресурса
+from observers.iobserver import IObserver
 
-class SimpObserver:
-    pass
+class SimpObserver(IObserver):
+
+    def __init__(self, timer):
+        self.timer(self)
+
+    def checkResources(self):
+        pass
