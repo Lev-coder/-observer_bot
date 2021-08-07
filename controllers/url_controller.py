@@ -1,8 +1,10 @@
-from checks.url_cheker import CheckURL
-from views.resource_in_database import ResourceInDatabase
 from checks.user_check import UserCheck
-from database.requests.add_resource_to_user import AddResourceToUser
+from checks.datetime_cheker import CheckDateTime
+from checks.url_cheker import CheckURL
 from web_request.one_request import OneRequest
+from database.requests.add_resource_to_user import AddResourceToUser
+from views.resource_in_database import ResourceInDatabase
+
 
 class URLController:
 
@@ -11,16 +13,20 @@ class URLController:
 
         url = CheckURL.getURL(context)
         chat_id = UserCheck.getChatId(update)
-        lastModified = OneRequest(url).getlastModified()
+        lastModified = CheckDateTime.getLastModified(
+                        OneRequest(url).getlastModified()
+                        )
 
-        AddResourceToUser.start(chat_id, url, lastModified)
+        AddResourceToUser(chat_id, url, lastModified).start()
 
-        update.message.reply_text(ResourceInDatabase(url).text())
+        update.message.reply_text(
+            ResourceInDatabase(url,lastModified).text()
+        )
 
     @staticmethod
-    def getAllURLs():
+    def getAllURLs(update, context):
         pass
 
     @staticmethod
-    def getAllURLsForThisUser():
+    def getAllURLsForThisUser(update, context):
         pass

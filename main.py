@@ -40,6 +40,7 @@ class Bot:
         print("bot start")
 
 if __name__ == '__main__':
+
     db = Database()
     bot = Bot(TOKEN, ConsoleLogger)
 

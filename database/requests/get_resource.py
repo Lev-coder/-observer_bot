@@ -22,5 +22,5 @@ class GetResource:
     def sqlCommand(self):
         return f""" 
         SELECT * FROM {self.databaseName}.{self.resurcesTableName} 
-            WHERE link = {self.url}
+            WHERE link = "{self.url}"
         """

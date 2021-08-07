@@ -9,9 +9,9 @@ from modules.resources import Resources
 
 class AddResourceToUser:
 
-    def __init__(self, chat_id, link, lastModified):
+    def __init__(self, chat_id, url, lastModified):
         self.chat_id = chat_id
-        self.link = link
+        self.url = url
         self.lastModified = lastModified
 
     def start(self):
@@ -22,16 +22,16 @@ class AddResourceToUser:
         self.usersResourcesTableName = UsersResources.getTableName()
 
         if not UserCheck.isUserExist(self.chat_id):
-            AddUser(self.chat_id)
+            AddUser(self.chat_id).start()
 
         if not CheckURL.isURLExist(self.url):
-            AddResources(self.link, self.lastModified)
+            AddResources(self.url, self.lastModified).start()
 
-        self.resource = Resources(GetResource(self.url))
+        self.resource = Resources(GetResource(self.url).start())
 
         self.AddResourceToUser()
 
-        Database.saveChange()
+        database.saveChange()
 
     def AddResourceToUser(self):
         return self.cursor.execute(self.sqlCommand())

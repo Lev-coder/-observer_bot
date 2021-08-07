@@ -2,13 +2,12 @@ import requests
 
 class OneRequest:
 
-    def __int__(self,url):
+    def __init__(self, url: str):
         self.url = url
-        self.webKey = "last-modified"
+        self.webKey = "Last-Modified"
 
     def getlastModified(self):
         result = OneRequest.getRequests(self.url)
-
         if not self.webKey in result.headers:
             raise Exception(f"{self.webKey} not in response")
 
