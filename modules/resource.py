@@ -1,5 +1,5 @@
 
-class Resources:
+class Resource:
 
     def __init__(self, attribute_list):
         self.id = attribute_list[0]

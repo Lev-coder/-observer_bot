@@ -5,7 +5,7 @@ from database.requests.get_resource import GetResource
 from database.tables.users_resurces import UsersResources
 from checks.user_check import UserCheck
 from checks.url_cheker import CheckURL
-from modules.resources import Resources
+from modules.resource import Resource
 
 class AddResourceToUser:
 
@@ -27,7 +27,7 @@ class AddResourceToUser:
         if not CheckURL.isURLExist(self.url):
             AddResources(self.url, self.lastModified).start()
 
-        self.resource = Resources(GetResource(self.url).start())
+        self.resource = Resource(GetResource(self.url).start())
 
         self.AddResourceToUser()
 
