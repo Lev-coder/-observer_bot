@@ -15,6 +15,10 @@ from loggers.console_loger import ConsoleLogger
 from controllers.url_controller import URLController
 from controllers.user_controller import UserController
 
+from observers.simpl_observer import SimpObserver
+from timers.interval_timer import IntervalTimer
+
+import datetime
 class Bot:
 
     def __init__(self, token, iLoggerProvider):
@@ -43,6 +47,8 @@ if __name__ == '__main__':
 
     db = Database()
     bot = Bot(TOKEN, ConsoleLogger)
-
+    observer = SimpObserver(
+        IntervalTimer(datetime())
+    )
     db.up()
     bot.start()
