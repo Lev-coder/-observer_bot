@@ -13,6 +13,8 @@ class UpdateResource:
         self.cursor = database.getCursor()
         self.resurcesTableName = Resurces.getTableName()
 
+        self.updateResource()
+
         database.saveChange()
 
     def updateResource(self):

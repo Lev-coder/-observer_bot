@@ -1,5 +1,5 @@
 
 class User:
 
-    def __init__(self,chat_id):
-        self.chat_id = chat_id
+    def __init__(self, attribute_list):
+        self.chat_id = attribute_list[0]

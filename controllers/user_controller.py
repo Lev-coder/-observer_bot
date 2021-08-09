@@ -1,6 +1,11 @@
 from database.requests.add_user import AddUser
+from modules.resource import Resource
+from modules.user import User
 from views.menu import Menu
 from checks.user_check import UserCheck
+from checks.url_cheker import CheckURL
+from database.requests.get_users_by_resource import GetUsersByResource
+from sender.messages_sender import Sender
 
 class UserController:
 
@@ -11,4 +16,13 @@ class UserController:
         if not UserCheck.isUserExist(chat_id):
             AddUser(chat_id).start()
 
-        update.message.reply_text(Menu().text())
+        Sender.sendMassage(update, Menu().text())
+
+    @staticmethod
+    def getUsersByResource(resource: Resource):
+        if not CheckURL.isURLExist(resource.link):
+            raise Exception(f"resource not exist in database")
+
+        for user in GetUsersByResource(resource):
+            yield User(user)
+

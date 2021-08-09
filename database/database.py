@@ -32,6 +32,7 @@ class Database:
             table = table(Database._databaseName)
             self._createTable(cursor, table)
             self._addTableToDatabase(table)
+
     def drop(self):
         cursor = self._connection.cursor()
 

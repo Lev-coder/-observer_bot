@@ -1,19 +1,27 @@
 from timers.Itimer import ITimer
-from observers.simpl_observer import SimpObserver
-from datetime import datetime
+from observers.iobserver import IObserver
+from timers.DateTime import DateTime
 from multiprocessing import Process
 
 class IntervalTimer(ITimer):
 
-    def __int__(self, interval: datetime, observer: SimpObserver):
+    def __init__(self, interval: DateTime):
         self._interval = interval
-        self._observer = observer
+        self._subscribes = []
 
         Process(self.startСountdown).start()
 
     def startСountdown(self):
-        initialInterval = datetime.now()
+        initialInterval = DateTime.now()
         while initialInterval < self._interval:
-            currentDatetime = datetime.now()
+            currentDatetime = DateTime.now()
             initialInterval = currentDatetime - initialInterval
-        self._observer.checkResources()
+
+        self._infoSubscribers()
+
+    def addSubscriber(self, subscriber: IObserver):
+        self._subscribes.append(subscriber)
+
+    def _infoSubscribers(self):
+        for subscribe in self._subscribes:
+            subscribe.checkResources()
