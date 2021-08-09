@@ -6,7 +6,6 @@ class DateTime:
                  month=0, day=0,
                  hour=0, minute=0,
                  second=0, microsecond=0):
-
         self._datetime = datetime(year, month, day, hour, minute, second, microsecond)
 
     def now(self):
@@ -22,5 +21,5 @@ class DateTime:
         return self.getDateTime() > other.getDateTime()
 
     def __sub__(self, other):
-        difference = self.getDateTime() > other.getDateTime()
+        difference = self.getDateTime() - other.getDateTime()
         return DateTime(difference)

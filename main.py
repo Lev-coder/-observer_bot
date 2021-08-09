@@ -13,7 +13,9 @@ if __name__ == '__main__':
 
     db = Database()
     bot = WatcherBot(TOKEN, ConsoleLogger)
+
     a = DateTime()
+
     observer = SimpObserver(
         IntervalTimer(a),
         bot
