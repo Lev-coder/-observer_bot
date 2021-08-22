@@ -1,13 +1,13 @@
-from database.database import Database
+from database.Database import Database
 
 from config import TOKEN
-from loggers.console_loger import ConsoleLogger
-from bot.watcher_bot import WatcherBot
+from loggers.ConsoleLoger import ConsoleLogger
+from app.user_interface.bot.WatcherBot import WatcherBot
 
-from observers.simpl_observer import SimpObserver
-from timers.interval_timer import IntervalTimer
+from app.services.observers.SimplObserver import SimpObserver
+from app.services.timers.IntervalTimer import IntervalTimer
 
-from timers.re_date_time.DateTime import DateTime
+from helpers.DateTime import DateTime
 from datetime import timedelta
 
 if __name__ == '__main__':
