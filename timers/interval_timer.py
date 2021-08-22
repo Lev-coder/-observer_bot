@@ -1,7 +1,7 @@
 from timers.Itimer import ITimer
 from observers.iobserver import IObserver
-from timers.DateTime import DateTime
-from multiprocessing import Process
+from timers.re_date_time.DateTime import DateTime
+from threading import Thread
 
 class IntervalTimer(ITimer):
 
@@ -9,13 +9,16 @@ class IntervalTimer(ITimer):
         self._interval = interval
         self._subscribes = []
 
-        Process(self.startСountdown).start()
+    def start(self):
+        thread = Thread(target=IntervalTimer.startСountdown,
+                        args=(self,))
+        thread.start()
+        thread.join()
 
     def startСountdown(self):
         initialInterval = DateTime.now()
         while initialInterval < self._interval:
-            currentDatetime = DateTime.now()
-            initialInterval = currentDatetime - initialInterval
+            initialInterval = DateTime.now()
 
         self._infoSubscribers()
 

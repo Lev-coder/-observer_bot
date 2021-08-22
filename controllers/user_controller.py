@@ -23,6 +23,7 @@ class UserController:
         if not CheckURL.isURLExist(resource.link):
             raise Exception(f"resource not exist in database")
 
-        for user in GetUsersByResource(resource):
-            yield User(user)
+        users = GetUsersByResource(resource).start()
+        for user in users:
+            yield user
 

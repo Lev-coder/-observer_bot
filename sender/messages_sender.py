@@ -9,4 +9,5 @@ class Sender:
     @staticmethod
     def sendMassage(bot, user, massageText: str):
         update = bot.getUpdater()
-        update.message.reply_text(massageText)
+        bot = update.bot
+        bot.send_message(user.chat_id,massageText)

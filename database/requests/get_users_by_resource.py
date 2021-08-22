@@ -1,9 +1,9 @@
-from database.database import Database
 from modules.resource import Resource
 from database.database import Database
 from database.tables.users import Users
 from database.tables.resources import Resurces
 from database.tables.users_resurces import UsersResources
+from modules.user import User
 
 class GetUsersByResource:
 
@@ -19,19 +19,21 @@ class GetUsersByResource:
         self.resourceTable = Resurces.getTableName()
         self.usersResourcesTable = UsersResources.getTableName()
 
-        self.getUsersByResource()
+        for user_fields in self.GetUsersFieldsByResource():
+            yield User(user_fields)
 
-    def getUsersByResource(self):
+    def GetUsersFieldsByResource(self):
         self.cursor.execute(self.sqlCommand())
         return self.cursor.fetchall()
 
+
     def sqlCommand(self):
         return f""" 
-        SELECT chat_id FROM {self.databaseName}.{self.userTable} 
-            JOIN {self.usersResourcesTable} ON 
+        SELECT {self.databaseName}.{self.userTable}.chat_id FROM {self.databaseName}.{self.userTable} 
+            JOIN {self.databaseName}.{self.usersResourcesTable} ON 
                 {self.userTable}.chat_id = {self.usersResourcesTable}.chat_id
-            JOIN {self.resourceTable} ON
-                {self.usersResourcesTable}.resource_id = {self.resourceTable}.resource_id 
-                AND 
-                {self.resourceTable}.link = {self._resourc.link}
+            JOIN {self.databaseName}.{self.resourceTable} ON
+    	        {self.usersResourcesTable}.resource_id = {self.databaseName}.{self.resourceTable}.id 
+    	    WHERE
+                {self.resourceTable}.link = "{self._resourc.link}"
         """

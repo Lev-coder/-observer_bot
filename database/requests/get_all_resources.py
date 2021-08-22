@@ -8,9 +8,9 @@ class GetAllResources:
 
             self.databaseName = database.getDatabaseName()
             self.cursor = database.getCursor()
-            self.resourceTable = Resurces.getTableName()
+            self.resurcesTableName = Resurces.getTableName()
 
-            self.getAllResources()
+            return self.getAllResources()
 
         def getAllResources(self):
             self.cursor.execute(self.sqlCommand())
@@ -18,5 +18,5 @@ class GetAllResources:
 
         def sqlCommand(self):
             return f""" 
-            SELECT * FROM {self.databaseName}.{self.resurcesTableName}"
+            SELECT * FROM {self.databaseName}.{self.resurcesTableName}
             """

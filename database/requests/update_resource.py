@@ -19,10 +19,10 @@ class UpdateResource:
 
     def updateResource(self):
         return self.cursor.execute(self.sqlCommand())
-
+    # TODO
     def sqlCommand(self):
         return f""" 
         UPDATE {self.databaseName}.{self.resurcesTableName} 
-            SET  {self.resurcesTableName}.last_modified = {self._resource.lastModified}
+            SET  {self.resurcesTableName}.last_modified = "{self._resource.lastModified}"
             WHERE {self.resurcesTableName}.id = {self._resource.id}
         """

@@ -12,30 +12,27 @@ class SimpObserver(IObserver):
 
     def __init__(self, bot, timer: ITimer):
         self.bot = bot
+        self.timer = timer
 
         timer.addSubscriber(self)
-        self.timer = timer
+
+        timer.start()
 
     def checkResources(self):
         resources = URLController.getAllResources()
         for resource in resources:
-            currentLastModified = OneRequest.getlastModified(resource.link)
-            if self._isResourceChanged(resource, currentLastModified):
+            currentLastModified = OneRequest(resource.link).getlastModified()
+            if not self._isResourceChanged(resource, currentLastModified):
                 self._reportChange(resource)
 
-
-        # TODO
-        # запросить все ресурсы из контроллера
-        # для кажного ресурса получить его последние обновление
-        # если обновление было,
-        #   обновить данные в БД ( и сообщить пользывателям, которые подписаны на ресурс )
     def _isResourceChanged(self, resource, currentLastModified):
         return resource.lastModified != currentLastModified
 
     def _reportChange(self, resource: Resource):
-        URLController.updateResource(resource)
         for user in UserController.getUsersByResource(resource):
             self._sendMessage(user,resource)
+
+        URLController.updateResource(resource)
 
     def _sendMessage(self,user: User,resource: Resource):
         massageText = HaveChang(resource).text()

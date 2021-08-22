@@ -32,14 +32,15 @@ class URLController:
 
     @staticmethod
     def getAllResources():
-        for resource in GetAllResources():
+        resources = GetAllResources().start()
+        for resource in resources:
             yield Resource(resource)
 
     @staticmethod
     def updateResource(resource: Resource):
         if not CheckURL.isURLExist(resource.link):
             raise Exception(f"URL {resource.link} not exist in database")
-        UpdateResource(resource)
+        UpdateResource(resource).start()
 
 
 
