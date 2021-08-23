@@ -1,12 +1,21 @@
 from app.services.checks.UserCheckr import UserCheck
 from app.services.checks.DatetimeCheker import CheckDateTime
-from app.services.checks.UrlCheker import CheckURL
+from app.services.checks.ResourceCheck import ResourceCheck
+from app.services.checks.UrlIdCheker import UrlIdCheker
+from app.services.checks.ExistCheker import ExistCheker
+from app.services.checks.OwnerCheker import OwnerCheker
 from helpers.MessagesSender import Sender
 from app.services.web_request.OneRequest import OneRequest
 from database.requests.AddResourceToUser import AddResourceToUser
 from database.requests.UpdateResource import UpdateResource
 from database.requests.GetAllResources import GetAllResources
+from database.requests.GetResourceById import GetResourceById
+from database.requests.GetResource import GetResource
+from database.requests.GetResourcesByUser import GetResourcesByUser
+from database.requests.DeleteResource import DeleteResource
 from views.ResourceInDatabase import ResourceInDatabase
+from views.UserResources import UserResources
+from views.errors.ResourceNotExist import ResourceNotExist
 from database.modules.Resource import Resource
 
 class URLController:
@@ -14,21 +23,43 @@ class URLController:
     @staticmethod
     def watch(update, context):
 
-        url = CheckURL.getURL(context)
-        chat_id = UserCheck.getChatId(update)
+        url = ResourceCheck.getURL(context)
+        user = UserCheck.getUser(update)
         lastModified = CheckDateTime.getLastModified(
-                        OneRequest(url).getlastModified()
+                            OneRequest(url).getlastModified()
                         )
 
-        AddResourceToUser(chat_id, url, lastModified).start()
+        if not ExistCheker.isURLExist(url):
+            AddResourceToUser(user, url, lastModified).start()
 
-        massageText = ResourceInDatabase(url,lastModified).text()
+        resource = GetResource(url)
+        if not OwnerCheker.isOwner(user,resource):
+            AddResourceToUser(user,url,lastModified)
+
+        massageText = ResourceInDatabase(url, lastModified).text()
         Sender.sendMassage(update, massageText)
-
 
     @staticmethod
     def getAllURLsForThisUser(update, context):
-        pass
+        user = UserCheck.getUser(update)
+        resources = GetResourcesByUser(user).start()
+        Sender.sendMassage(update, UserResources(resources).text())
+
+    @staticmethod
+    def deleteResource(update, context):
+        urlId = UrlIdCheker.getUrlId(context)
+        if not ExistCheker.isUrlIdExist(urlId):
+            Sender.sendMassage(update, ResourceNotExist(urlId).text())
+
+        resource = Resource( GetResourceById(urlId).start() )
+        user = UserCheck.getUser(update)
+        if not OwnerCheker.isOwner(user,resource):
+            Sender.sendMassage(update, ResourceNotExist(urlId).text())
+
+        DeleteResource(resource).start()
+
+        resources = GetResourcesByUser(user).start()
+        Sender.sendMassage(update, UserResources(resources).text())
 
     @staticmethod
     def getAllResources():
@@ -38,7 +69,7 @@ class URLController:
 
     @staticmethod
     def updateResource(resource: Resource):
-        if not CheckURL.isURLExist(resource.link):
+        if not ExistCheker.isURLExist(resource.link):
             raise Exception(f"URL {resource.link} not exist in database")
         UpdateResource(resource).start()
 

@@ -1,11 +1,11 @@
 from database.Database import Database
+from database.modules.Resource import Resource
 from database.tables.Resources import Resurces
 
-class AddResources:
+class DeleteResource:
 
-    def __init__(self, link, last_modified):
-        self.link = link
-        self.last_modified = last_modified
+    def __init__(self, resurces: Resource):
+        self._resurces = resurces
 
     def start(self):
         database = Database()
@@ -14,15 +14,15 @@ class AddResources:
         self.cursor = database.getCursor()
         self.resourceTable = Resurces.getTableName()
 
-        self.addResource()
+        self.deleteResource()
 
         database.saveChange()
 
-    def addResource(self):
+    def deleteResource(self):
         return self.cursor.execute(self.sqlCommand())
 
     def sqlCommand(self):
         return f""" 
-        INSERT INTO {self.databaseName}.{self.resourceTable}(link,last_modified) 
-        VALUES ("{self.link}",'{self.last_modified}')
+        DELETE FROM  {self.databaseName}.{self.resourceTable} 
+        WHERE {self.resourceTable}.id = {self._resurces.id}
         """

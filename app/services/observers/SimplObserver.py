@@ -36,6 +36,6 @@ class SimpObserver(IObserver):
 
     def _sendMessage(self,user: User,resource: Resource):
         massageText = HaveChang(resource).text()
-        Sender.sendMassage(self.bot, user,massageText)
+        Sender.sendMassageByBot(self.bot, user,massageText)
 
 

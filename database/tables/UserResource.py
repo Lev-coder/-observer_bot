@@ -13,8 +13,11 @@ class UsersResources (ITable):
         (
              chat_id INT,
              resource_id INT,
-             FOREIGN KEY(chat_id) REFERENCES users(chat_id),
-             FOREIGN KEY(resource_id) REFERENCES resources(id)
+             
+             PRIMARY KEY (chat_id, resource_id),
+                 
+             FOREIGN KEY(chat_id) REFERENCES users(chat_id) ON DELETE CASCADE,
+             FOREIGN KEY(resource_id) REFERENCES resources(id) ON DELETE CASCADE
         )"""
 
     def down(self):

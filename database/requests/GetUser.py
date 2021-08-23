@@ -3,8 +3,8 @@ from database.tables.Users import Users
 
 class GetUser:
 
-    def __init__(self, chat_id):
-        self.chat_id = chat_id
+    def __init__(self, user: Users):
+        self._user = user
 
     def start(self):
         database = Database()
@@ -22,5 +22,5 @@ class GetUser:
     def sqlCommand(self):
         return f""" 
         SELECT chat_id FROM {self.databaseName}.{self.userTableName} 
-            WHERE chat_id = {self.chat_id}
+            WHERE chat_id = {self._user.chat_id}
         """

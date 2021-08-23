@@ -1,12 +1,8 @@
-from database.requests.GetUser import GetUser
+from database.modules.User import User
 
 class UserCheck:
 
     @staticmethod
-    def isUserExist(chat_id):
-        return GetUser(chat_id).start() != None
-
-    @staticmethod
-    def getChatId(update):
+    def getUser(update):
         user = update.message.from_user
-        return user['id']
+        return User((user['id'],))

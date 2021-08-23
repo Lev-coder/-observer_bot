@@ -1,7 +1,6 @@
 import validators
-from database.requests.GetResource import GetResource
 
-class CheckURL:
+class ResourceCheck:
 
     @staticmethod
     def isURLValide(url):
@@ -15,11 +14,7 @@ class CheckURL:
 
         url = context.args[0]
 
-        if not CheckURL.isURLValide(url):
+        if not ResourceCheck.isURLValide(url):
             raise Exception("URL not valide")
 
         return url
-
-    @staticmethod
-    def isURLExist(url):
-        return GetResource(url).start() != None

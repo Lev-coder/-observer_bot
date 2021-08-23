@@ -13,14 +13,15 @@ class IntervalTimer(ITimer):
         thread = Thread(target=IntervalTimer.startСountdown,
                         args=(self,))
         thread.start()
-        thread.join()
+        # thread.join()
 
     def startСountdown(self):
-        initialInterval = DateTime.now()
-        while initialInterval < self._interval:
+        while True:
             initialInterval = DateTime.now()
+            while initialInterval < self._interval:
+                initialInterval = DateTime.now()
 
-        self._infoSubscribers()
+            self._infoSubscribers()
 
     def addSubscriber(self, subscriber: IObserver):
         self._subscribes.append(subscriber)

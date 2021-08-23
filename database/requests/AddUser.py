@@ -1,10 +1,11 @@
 from database.Database import Database
+from database.modules.User import User
 from database.tables.Users import Users
 
 class AddUser:
 
-    def __init__(self,chat_id):
-        self.chat_id = chat_id
+    def __init__(self,user: User):
+        self._user = user
 
     def start(self):
         database = Database()
@@ -23,5 +24,5 @@ class AddUser:
     def sqlCommand(self):
         return f""" 
         INSERT INTO {self.databaseName}.{self.userTableName}(chat_id) 
-        VALUES ({self.chat_id})
+        VALUES ({self._user.chat_id})
         """
