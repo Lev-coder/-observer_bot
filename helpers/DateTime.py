@@ -3,8 +3,8 @@ from datetime import datetime, timedelta
 class DateTime():
 
     def __init__(self,theDatetime: timedelta):
-        nowDatetime = DateTime.now()
-        self._datetime = theDatetime + nowDatetime
+        self.theDatetime = theDatetime
+        self.restart()
 
     @staticmethod
     def now():
@@ -13,6 +13,10 @@ class DateTime():
 
     def getDateTime(self):
         return self._datetime
+
+    def restart(self):
+        nowDatetime = DateTime.now()
+        self._datetime = theDatetime + nowDatetime
 
     def __lt__(self, other):
         return self.getDateTime() < other

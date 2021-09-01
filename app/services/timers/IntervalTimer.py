@@ -22,6 +22,7 @@ class IntervalTimer(ITimer):
                 initialInterval = DateTime.now()
 
             self._infoSubscribers()
+            self._interval.restart()
 
     def addSubscriber(self, subscriber: IObserver):
         self._subscribes.append(subscriber)
