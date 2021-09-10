@@ -1,8 +1,9 @@
 from database.modules.Resource import Resource
+from database.requests.IRequests import IRequests
 from database.Database import Database
 from database.tables.Resources import Resurces
 
-class UpdateResource:
+class UpdateResource(IRequests):
     def __init__(self, resource: Resource):
         self._resource = resource
 

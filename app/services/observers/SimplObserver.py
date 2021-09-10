@@ -5,7 +5,7 @@ from app.controllers.UserController import UserController
 from app.services.web_request.OneRequest import OneRequest
 from database.modules.Resource import Resource
 from database.modules.User import User
-from helpers.MessagesSender import Sender
+from helpers.MessagesSender import MessagesSender
 from views.HaveChang import HaveChang
 
 class SimpObserver(IObserver):
@@ -36,6 +36,6 @@ class SimpObserver(IObserver):
 
     def _sendMessage(self,user: User,resource: Resource):
         massageText = HaveChang(resource).text()
-        Sender.sendMassageByBot(self.bot, user,massageText)
+        MessagesSender.sendMassageByBot(self.bot, user, massageText)
 
 

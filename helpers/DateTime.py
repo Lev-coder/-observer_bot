@@ -16,7 +16,7 @@ class DateTime():
 
     def restart(self):
         nowDatetime = DateTime.now()
-        self._datetime = theDatetime + nowDatetime
+        self._datetime = self.theDatetime + nowDatetime
 
     def __lt__(self, other):
         return self.getDateTime() < other

@@ -1,7 +1,8 @@
 from database.Database import Database
 from database.tables.Resources import Resurces
+from database.requests.IRequests import IRequests
 
-class AddResource:
+class AddResource(IRequests):
 
     def __init__(self, link, last_modified):
         self.link = link

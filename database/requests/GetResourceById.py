@@ -1,8 +1,9 @@
 from database.Database import Database
 from database.tables.Resources import Resurces
 from database.modules.Resource import Resource
+from database.requests.IRequests import IRequests
 
-class GetResourceById:
+class GetResourceById(IRequests):
 
     def __init__(self, urlId):
         self.urlId = urlId

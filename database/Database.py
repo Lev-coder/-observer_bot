@@ -18,7 +18,16 @@ class Database:
         UsersResources,
     ]
 
-    def __init__(self):
+    def __init__(self,databaseName = "thedatabase",
+                 host = "localhost",
+                 user = "root",
+                 password = ""):
+
+        Database._databaseName = databaseName
+        Database._host = host
+        Database._user = user
+        Database._password = password
+
         self.tables = {}
         self._connection = self.makeConnect()
 

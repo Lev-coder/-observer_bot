@@ -1,4 +1,5 @@
 import validators
+from helpers.MessagesSender import MessagesSender
 
 class ResourceCheck:
 
@@ -18,3 +19,11 @@ class ResourceCheck:
             raise Exception("URL not valide")
 
         return url
+
+    @staticmethod
+    def getURLSafely(update, context, callBackFunction):
+        try:
+            url = ResourceCheck.getURL(context)
+            return url
+        except:
+            callBackFunction(update)

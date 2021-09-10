@@ -1,8 +1,9 @@
 from database.Database import Database
 from database.modules.User import User
 from database.tables.Users import Users
+from database.requests.IRequests import IRequests
 
-class AddUser:
+class AddUser(IRequests):
 
     def __init__(self,user: User):
         self._user = user

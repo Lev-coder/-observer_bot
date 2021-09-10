@@ -1,11 +1,12 @@
 from database.modules.Resource import Resource
 from database.Database import Database
 from database.tables.Users import Users
+from database.requests.IRequests import IRequests
 from database.tables.Resources import Resurces
 from database.tables.UserResource import UsersResources
 from database.modules.User import User
 
-class GetUsersByResource:
+class GetUsersByResource(IRequests):
 
     def __init__(self, resourc: Resource):
         self._resourc = resourc

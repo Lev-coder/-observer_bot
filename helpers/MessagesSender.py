@@ -1,6 +1,6 @@
 from telegram.ext import Updater
 
-class Sender:
+class MessagesSender:
 
     @staticmethod
     def sendMassage(update: Updater, massageText: str):

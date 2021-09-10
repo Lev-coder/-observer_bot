@@ -4,8 +4,9 @@ from database.modules.Resource import Resource
 from database.tables.Users import Users
 from database.tables.Resources import Resurces
 from database.tables.UserResource import UsersResources
+from database.requests.IRequests import IRequests
 
-class GetResourcesByUser:
+class GetResourcesByUser(IRequests):
     def __init__(self, user: User):
         self._user = user
 

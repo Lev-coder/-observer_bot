@@ -1,7 +1,8 @@
 from database.Database import Database
 from database.tables.Resources import Resurces
+from database.requests.IRequests import IRequests
 
-class GetResource:
+class GetResource(IRequests):
 
     def __init__(self, url):
         self.url = url

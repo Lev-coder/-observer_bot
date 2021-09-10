@@ -1,1 +1,1 @@
-#TODO
+from tests.database_tests.all_database_tests import *

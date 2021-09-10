@@ -4,7 +4,7 @@ from app.services.checks.ResourceCheck import ResourceCheck
 from app.services.checks.UrlIdCheker import UrlIdCheker
 from app.services.checks.ExistCheker import ExistCheker
 from app.services.checks.OwnerCheker import OwnerCheker
-from helpers.MessagesSender import Sender
+from helpers.MessagesSender import MessagesSender
 from app.services.web_request.OneRequest import OneRequest
 from database.requests.AddResourceToUser import AddResourceToUser
 from database.requests.UpdateResource import UpdateResource
@@ -16,6 +16,7 @@ from database.requests.DeleteResource import DeleteResource
 from views.ResourceInDatabase import ResourceInDatabase
 from views.UserResources import UserResources
 from views.errors.ResourceNotExist import ResourceNotExist
+from views.errors.CommandWatchIncorrect import CommandWatchIncorrect
 from database.modules.Resource import Resource
 
 class URLController:
@@ -23,7 +24,10 @@ class URLController:
     @staticmethod
     def watch(update, context):
 
-        url = ResourceCheck.getURL(context)
+        messageIfFailured = lambda context: MessagesSender.sendMassage(update, CommandWatchIncorrect().text())
+        url = ResourceCheck.getURLSafely(update, context, messageIfFailured) #TODO
+
+
         user = UserCheck.getUser(update)
         lastModified = CheckDateTime.getLastModified(
                             OneRequest(url).getlastModified()
@@ -37,29 +41,29 @@ class URLController:
             AddResourceToUser(user,url,lastModified)
 
         massageText = ResourceInDatabase(url, lastModified).text()
-        Sender.sendMassage(update, massageText)
+        MessagesSender.sendMassage(update, massageText)
 
     @staticmethod
     def getAllURLsForThisUser(update, context):
         user = UserCheck.getUser(update)
         resources = GetResourcesByUser(user).start()
-        Sender.sendMassage(update, UserResources(resources).text())
+        MessagesSender.sendMassage(update, UserResources(resources).text())
 
     @staticmethod
     def deleteResource(update, context):
         urlId = UrlIdCheker.getUrlId(context)
         if not ExistCheker.isUrlIdExist(urlId):
-            Sender.sendMassage(update, ResourceNotExist(urlId).text())
+            MessagesSender.sendMassage(update, ResourceNotExist(urlId).text())
 
         resource = Resource( GetResourceById(urlId).start() )
         user = UserCheck.getUser(update)
         if not OwnerCheker.isOwner(user,resource):
-            Sender.sendMassage(update, ResourceNotExist(urlId).text())
+            MessagesSender.sendMassage(update, ResourceNotExist(urlId).text())
 
         DeleteResource(resource).start()
 
         resources = GetResourcesByUser(user).start()
-        Sender.sendMassage(update, UserResources(resources).text())
+        MessagesSender.sendMassage(update, UserResources(resources).text())
 
     @staticmethod
     def getAllResources():

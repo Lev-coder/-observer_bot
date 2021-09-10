@@ -1,4 +1,5 @@
 from database.Database import Database
+from database.requests.IRequests import IRequests
 from database.requests.AddUser import AddUser
 from database.requests.AddResource import AddResource
 from database.requests.GetResource import GetResource
@@ -7,7 +8,7 @@ from app.services.checks.ExistCheker import ExistCheker
 from database.modules.Resource import Resource
 from database.modules.User import User
 
-class AddResourceToUser:
+class AddResourceToUser(IRequests):
 
     def __init__(self, user: User, url, lastModified):
         self._user = user

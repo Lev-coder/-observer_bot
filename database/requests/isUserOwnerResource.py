@@ -1,11 +1,12 @@
 from database.Database import Database
+from database.requests.IRequests import IRequests
 from database.tables.Users import Users
 from database.tables.Resources import Resurces
 from database.tables.UserResource import UsersResources
 from database.modules.User import User
 from database.modules.Resource import Resource
 
-class isUserOwnerResource:
+class isUserOwnerResource(IRequests):
     def __init__(self,user: User, resource: Resource):
         self._user = user
         self._resource = resource

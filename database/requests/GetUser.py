@@ -1,7 +1,8 @@
 from database.Database import Database
 from database.tables.Users import Users
+from database.requests.IRequests import IRequests
 
-class GetUser:
+class GetUser(IRequests):
 
     def __init__(self, user: Users):
         self._user = user

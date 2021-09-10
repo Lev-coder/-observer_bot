@@ -5,7 +5,7 @@ from app.services.checks.ExistCheker import ExistCheker
 from app.services.checks.UserCheckr import UserCheck
 from app.services.checks.ResourceCheck import ResourceCheck
 from database.requests.GetUsersByResource import GetUsersByResource
-from helpers.MessagesSender import Sender
+from helpers.MessagesSender import MessagesSender
 
 
 class UserController:
@@ -17,7 +17,7 @@ class UserController:
         if not ExistCheker.isUserExist(user):
             AddUser(user).start()
 
-        Sender.sendMassage(update, Menu().text())
+        MessagesSender.sendMassage(update, Menu().text())
 
     @staticmethod
     def getUsersByResource(resource: Resource):

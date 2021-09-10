@@ -1,7 +1,8 @@
 from database.Database import Database
 from database.tables.Resources import Resurces
+from database.requests.IRequests import IRequests
 
-class GetAllResources:
+class GetAllResources(IRequests):
 
         def start(self):
             database = Database()

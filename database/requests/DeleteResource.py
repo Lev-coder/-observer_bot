@@ -1,8 +1,9 @@
 from database.Database import Database
 from database.modules.Resource import Resource
 from database.tables.Resources import Resurces
+from database.requests.IRequests import IRequests
 
-class DeleteResource:
+class DeleteResource(IRequests):
 
     def __init__(self, resurces: Resource):
         self._resurces = resurces
